@@ -13,6 +13,7 @@ function validate(event) {
 
 // DOM Elements
 const modalbg = document.querySelector(".bground");
+console.log(modalbg);
 const modalBtn = document.querySelectorAll(".modal-btn");
 const formData = document.querySelectorAll(".formData");
 
@@ -25,8 +26,35 @@ function launchModal() {
 }
 
 // close modal form
-function closeModal(event) {
+function closeModal() {
   modalbg.style.display = "none";
+}
+
+
+// DOM ELEMENTS FORM FIELDS VALIDATION
+const firstName = document.getElementById('#first');
+const lastName = document.getElementById('#last');
+const email = document.getElementById('#email');
+const birthdate = document.getElementById('#birthdate');
+const quantity = document.getElementById('#quantity');
+const allLocations = document.getElementById('#allLocations');
+const locations = document.querySelectorAll('#allLocations .checkbox-input');
+const checkbox1 = document.getElementById('#checkbox1');
+const input = document.getElementsByClassName('#text-control');
+const form = document.getElementById('#form');
+const regex = /^[a-zA-ZÀ-ÖØ-öø-ÿ]+$/;
+const validForm = document.getElementById("#confirmation")
+const closeValidForm = document.getElementById()
+
+function checkFirstName() {
+  if (firstName.value.trim().length < 2 && first.value.trim() === '' || !firstName.value.match(regex)) {
+      firstName.parentElement.setAttribute('data-error-visible', 'true');
+      firstName.style.border = '2px solid #e54858';
+      return false;
+  }
+  first.parentElement.setAttribute('data-error-visible', 'false');
+  first.style.border = 'solid red 0.19rem';
+  return true;
 }
 
 /*
@@ -51,7 +79,7 @@ const checkEmail = (event) => {
 }
 inputEmail.addEventListener("input",checkEmail);
 
-// Birthdate
+// birthDate
 const inputBirthDate = document.querySelector("#birthDate");
 const checkBirthDate = (event) => {
   console.log("birthdate", event)

@@ -68,6 +68,10 @@ img {
   display: none;
 }
 
+.container-confirmation{
+  display: none;
+}
+
                                         @media screen and (max-width: 768px) {
   .topnav a {display: none;}
   .topnav a.icon {
