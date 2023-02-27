@@ -42,20 +42,12 @@ const input = document.getElementsByClassName('.text-control');
 const form = document.getElementById('#form');
 const regex = /^[a-zA-ZÀ-ÖØ-öø-ÿ]+$/;
 const validForm = document.getElementById('confirmation')
-const closeValidForm = document.getElementById()
+// const closeValidForm = document.getElementById()
 const submitBtn = document.getElementById('go');
+console.log("🚀 ~ file: modal.js:47 ~ submitBtn:", submitBtn)
 
-submitBtn.forEach((submitBtn) => submitBtn.addEventListener("click", checkAll));
 
-const checkAll = () => {
-  checkFirstName();
-  checkLastName();
-  checkEmail();
-  checkBirthdate();
-  checkQuantity();
-  checkAllLocations();
-  checkCheckBox1();
-}
+
 
 
 /*const firstNameNotValid = firstName.value.trim().length < 2 || first.value.trim() === '' || !firstName.value.match(regex)
@@ -72,25 +64,51 @@ const checkFirstName = () => {
 }
 */    
 
-function checkFirstName() {
+const checkFirstName = () => {
   if (firstName.value.trim().length < 2 || first.value.trim() === '' || !firstName.value.match(regex)) {
     firstName.parentElement.setAttribute('data-error-visible', 'true');
+    let messageError = firstName.value.length ? `Oups... ${firstName.value} n'est pas conforme` : "Champ obligatoire"
+    firstName.parentElement.setAttribute('data-error', messageError );
     firstName.style.border = '2px solid #e54858';
     return false;
   }
+
   firstName.parentElement.setAttribute('data-error-visible', 'false');
-  firstName.style.border = 'solid red 0.2rem';
+  firstName.parentElement.setAttribute('data-error', ``);
+
+  firstName.style.border = '0px';
   return true;
 }
 
-function checkLasttName() {
+const checkLastName = () => {
   if (lastName.value.trim().length < 2 || last.value.trim() === '' || !lastName.value.match(regex)) {
     lastName.parentElement.setAttribute('data-error-visible', 'true');
+    let messageError = lastName.value.length ? `Oups... ${lastName.value} n'est pas conforme` : "Champ obligatoire"
+    lastName.parentElement.setAttribute('data-error', messageError );
+
     lastName.style.border = '2px solid #e54858';
     return false;
   }
   lastName.parentElement.setAttribute('data-error-visible', 'false');
-  lastName.style.border = 'solid red 0.2rem';
+  lastName.parentElement.setAttribute('data-error', ``);
+
+  lastName.style.border = '0px';
   return true;
 }
 
+const checkAll = () => {
+  // if (checkFirstName() && checkLastName() && checkEmail()) {w
+  if (checkFirstName() && checkLastName() ) {
+    // Traitement du succes
+    console.log('cool ');
+  } else {
+    console.log('pas cool ');
+
+  }
+  // checkEmail();
+  // checkBirthdate();
+  // checkQuantity();
+  // checkAllLocations();
+  // checkCheckBox1();
+}
+submitBtn.addEventListener("click", checkAll);
