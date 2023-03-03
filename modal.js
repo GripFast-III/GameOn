@@ -45,24 +45,14 @@ const validForm = document.getElementById('confirmation')
 // const closeValidForm = document.getElementById()
 const submitBtn = document.getElementById('go');
 console.log("🚀 ~ file: modal.js:47 ~ submitBtn:", submitBtn)
+const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
 
 
 
 
 /*const firstNameNotValid = firstName.value.trim().length < 2 || first.value.trim() === '' || !firstName.value.match(regex)
-
-const checkFirstName = () => {
-
-  if (firstNameNotValid = true) {
-    firstName.parentElement.setAttribute('data-error-visible', 'true');
-    firstName.style.border = '2px solid #e54858';
-    return false;
-  } else {
-    console.log('true')
-  }
-}
-*/    
+*/
 
 const checkFirstName = () => {
   if (firstName.value.trim().length < 2 || first.value.trim() === '' || !firstName.value.match(regex)) {
@@ -96,8 +86,24 @@ const checkLastName = () => {
   return true;
 }
 
+const checkEmail = () => {
+  if (email.value.trim() === '' || !email.value.match(re)) {
+    email.parentElement.setAttribute('data-error-visible', 'true');
+    let messageError = email.value.match ? `Oups... ${email.value} n'est pas conforme` : "Champ obligatoire"
+    email.parentElement.setAttribute('data-error', messageError );
+
+    email.style.border = '2px solid #e54858';
+    return false;
+  }
+  email.parentElement.setAttribute('data-error-visible', 'false');
+  email.parentElement.setAttribute('data-error', ``);
+
+  email.style.border = '0px';
+  return true;
+}
+
 const checkAll = () => {
-  // if (checkFirstName() && checkLastName() && checkEmail()) {w
+  // if (checkFirstName() && checkLastName() && checkEmail())
   if (checkFirstName() && checkLastName() ) {
     // Traitement du succes
     console.log('cool ');
