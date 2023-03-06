@@ -48,12 +48,6 @@ console.log("🚀 ~ file: modal.js:47 ~ submitBtn:", submitBtn)
 const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
 
-
-
-
-/*const firstNameNotValid = firstName.value.trim().length < 2 || first.value.trim() === '' || !firstName.value.match(regex)
-*/
-
 const checkFirstName = () => {
   if (firstName.value.trim().length < 2 || first.value.trim() === '' || !firstName.value.match(regex)) {
     firstName.parentElement.setAttribute('data-error-visible', 'true');
@@ -102,19 +96,112 @@ const checkEmail = () => {
   return true;
 }
 
+/*
+function getAge(dateString) {
+  var today = new Date();
+  var birthDate = new Date(dateString);
+  var age = today.getFullYear() - birthDate.getFullYear();
+  var m = today.getMonth() - birthDate.getMonth();
+  if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+      age--;
+  }
+  return age;
+}
+*/
+
+const checkBirthdate = () => {
+  if (birthdate.value.trim().length !== 10) {
+    birthdate.parentElement.setAttribute('data-error-visible', 'true');
+    birthdate.style.border = '2px solid #e54858';
+    return false;
+  }
+  birthdate.parentElement.setAttribute('data-error-visible', 'false');
+  birthdate.parentElement.setAttribute('data-error', ``);
+
+  birthdate.style.border = '0px';
+  return true;
+}
+
+const checkTournamentsQuantity = () => {
+  if (quantity.value.trim().length === 0 || isNaN(quantity.value.trim()) === true || quantity.value.trim() < 0) {
+    quantity.parentElement.setAttribute('data-error-visible', 'true');
+    let messageError = "Champ obligatoire"
+    quantity.parentElement.setAttribute('data-error', messageError );
+
+    quantity.style.border = '2px solid #e54858';
+    return false;
+  }
+  quantity.parentElement.setAttribute('data-error-visible', 'false');
+  quantity.parentElement.setAttribute('data-error', ``);
+
+  quantity.style.border = '0px';
+  return true;
+}
+
+/*
+const allLocations = [
+  "New York",
+  "San Francisco",
+  "Seattle",
+  "Chicago",
+  "Boston",
+  "Portland",
+]
+*/
+
+const checkAllLocations = () => {
+  allLocations.setAttribute('data-error-visible', 'true');
+  for (let i = 0; i < locations.lenght; i++) {
+    if (locations[i].checked) {
+      allLocations.setAttribute('data-error-visible', 'false');
+      allLocations.parentElement.setAttribute('data-error', ``);
+      
+      return true;
+    }     
+    
+    let messageError = allLocations.value.length ? `Oups... ${allLocations.value} n'est pas conforme` : "Champ obligatoire"
+    allLocations.parentElement.setAttribute('data-error', messageError );
+    allLocations.style.border = '2px solid #e54858';
+    return false;
+  }
+}
+
+
+const checkCheckBox1 = () => {
+  if (checkbox1.checked === false) {
+    checkbox1.parentElement.setAttribute('data-error-visible', 'true');
+    let messageError = "Champ obligatoire"
+    checkbox1.parentElement.setAttribute('data-error', messageError );
+
+    checkbox1.style.border = '2px solid #e54858';
+    return false;
+  }
+
+  checkbox1.parentElement.setAttribute('data-error-visible', 'false');
+  return true;
+}
+
+/*
+const checkAge = () => {
+  if (age >= 18 && age < 100) {
+    return true;
+  }
+}
+*/
+
 const checkAll = () => {
-  // if (checkFirstName() && checkLastName() && checkEmail())
-  if (checkFirstName() && checkLastName() ) {
+  if (checkFirstName()
+  && checkLastName()
+  && checkEmail()
+  && checkBirthdate()
+  && checkQuantity()
+  && checkAllLocations()
+  && checkCheckBox1())
+  {
     // Traitement du succes
     console.log('cool ');
-  } else {
-    console.log('pas cool ');
-
   }
-  // checkEmail();
-  // checkBirthdate();
-  // checkQuantity();
-  // checkAllLocations();
-  // checkCheckBox1();
 }
+
+
 submitBtn.addEventListener("click", checkAll);
