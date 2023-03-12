@@ -35,9 +35,7 @@ const lastName = document.getElementById('last');
 const email = document.getElementById('email');
 const birthdate = document.getElementById('birthdate');
 const quantity = document.getElementById('quantity');
-const allLocations = document.getElementById('allLocations');
 const locations = document.querySelectorAll('#allLocations .checkbox-input');
-const checkbox1 = document.getElementById('checkbox1');
 const input = document.getElementsByClassName('.text-control');
 const form = document.getElementById('#form');
 const regex = /^[a-zA-ZÀ-ÖØ-öø-ÿ]+$/;
@@ -122,7 +120,7 @@ const checkBirthdate = () => {
   return true;
 }
 
-const checkTournamentsQuantity = () => {
+const checkQuantity = () => {
   if (quantity.value.trim().length === 0 || isNaN(quantity.value.trim()) === true || quantity.value.trim() < 0) {
     quantity.parentElement.setAttribute('data-error-visible', 'true');
     let messageError = "Champ obligatoire"
@@ -149,7 +147,7 @@ const allLocations = [
 ]
 */
 
-const checkAllLocations = () => {
+/*const checkAllLocations = () => {
   allLocations.setAttribute('data-error-visible', 'true');
   for (let i = 0; i < locations.lenght; i++) {
     if (locations[i].checked) {
@@ -164,10 +162,20 @@ const checkAllLocations = () => {
     allLocations.style.border = '2px solid #e54858';
     return false;
   }
+}*/
+
+const checkAllLocations = () => {
+const allLocations = document.querySelector('input[name="location"]:checked');
+  console.log("locations", allLocations)
+  if (!allLocations) {
+    console.log("Oups")
+  } else {
+    console.log("location OK", allLocations.value)
+  }
 }
 
-
 const checkCheckBox1 = () => {
+  const checkbox1 = document.getElementById('checkbox1');
   if (checkbox1.checked === false) {
     checkbox1.parentElement.setAttribute('data-error-visible', 'true');
     let messageError = "Champ obligatoire"
@@ -181,27 +189,48 @@ const checkCheckBox1 = () => {
   return true;
 }
 
-/*
-const checkAge = () => {
-  if (age >= 18 && age < 100) {
-    return true;
-  }
-}
-*/
-
-const checkAll = () => {
-  if (checkFirstName()
-  && checkLastName()
-  && checkEmail()
-  && checkBirthdate()
-  && checkQuantity()
-  && checkAllLocations()
-  && checkCheckBox1())
-  {
-    // Traitement du succes
-    console.log('cool ');
-  }
-}
-
-
 submitBtn.addEventListener("click", checkAll);
+
+
+
+form.addEventListener('submit', function(event) {
+  event.preventDefault(); // empêche la soumission normale du formulaire
+
+  const checkAll = () => {
+    if (checkFirstName()
+    && checkLastName()
+    && checkEmail()
+    && checkBirthdate()
+    && checkQuantity()
+    && checkAllLocations()
+    && checkCheckbox1())
+    {
+      // Traitement du succes
+      console.log('cool ');
+    }
+}
+
+function formValidation() {
+  if (checkFirstName() === true
+  && checkLastName() === true
+  && checkEmail() === true
+  && checkBirthdate() === true
+  && checkQuantity() === true
+  && checkAllLocations() === true
+  && checkCheckbox1() === true)
+  {
+      return true;
+  }
+  return false;
+}
+
+  /*if (checkAll === true) {
+    lastName.parentElement.setAttribute('data-error-visible', 'false');
+    lastName.parentElement.setAttribute('data-error', ``);
+  
+    return true;
+
+    form.reset(); // réinitialise les champs du formulaire
+    modal.style.display = 'none'; // ferme la modal
+  }
+})*/
