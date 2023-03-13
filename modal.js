@@ -37,7 +37,7 @@ const birthdate = document.getElementById('birthdate');
 const quantity = document.getElementById('quantity');
 const locations = document.querySelectorAll('#allLocations .checkbox-input');
 const input = document.getElementsByClassName('.text-control');
-const form = document.getElementById('#form');
+const form = document.getElementById('content-form');
 const regex = /^[a-zA-ZÀ-ÖØ-öø-ÿ]+$/;
 const validForm = document.getElementById('confirmation')
 // const closeValidForm = document.getElementById()
@@ -81,7 +81,7 @@ const checkLastName = () => {
 const checkEmail = () => {
   if (email.value.trim() === '' || !email.value.match(re)) {
     email.parentElement.setAttribute('data-error-visible', 'true');
-    let messageError = email.value.match ? `Oups... ${email.value} n'est pas conforme` : "Champ obligatoire"
+    let messageError = email.value ? `Oups... ${email.value} n'est pas conforme` : "Champ obligatoire"
     email.parentElement.setAttribute('data-error', messageError );
 
     email.style.border = '2px solid #e54858';
@@ -189,10 +189,6 @@ const checkCheckBox1 = () => {
   return true;
 }
 
-submitBtn.addEventListener("click", checkAll);
-
-
-
 form.addEventListener('submit', function(event) {
   event.preventDefault(); // empêche la soumission normale du formulaire
 
@@ -206,31 +202,15 @@ form.addEventListener('submit', function(event) {
     && checkCheckbox1())
     {
       // Traitement du succes
-      console.log('cool ');
-    }
-}
-
-function formValidation() {
-  if (checkFirstName() === true
-  && checkLastName() === true
-  && checkEmail() === true
-  && checkBirthdate() === true
-  && checkQuantity() === true
-  && checkAllLocations() === true
-  && checkCheckbox1() === true)
-  {
+      console.log('cool ');      
+          form.reset(); // réinitialise les champs du formulaire
+          form.style.display = 'none'; // disparition du formulaire
+          document.querySelector('#confirmation').style.display = 'block'; //apparition du success
       return true;
-  }
-  return false;
-}
+    }
+    return false;
+  } 
 
-  /*if (checkAll === true) {
-    lastName.parentElement.setAttribute('data-error-visible', 'false');
-    lastName.parentElement.setAttribute('data-error', ``);
-  
-    return true;
+submitBtn.addEventListener("click", checkAll);
 
-    form.reset(); // réinitialise les champs du formulaire
-    modal.style.display = 'none'; // ferme la modal
-  }
-})*/
+})
