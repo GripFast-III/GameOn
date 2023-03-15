@@ -133,6 +133,9 @@ function getAge(dateString) {
 const checkBirthdate = () => {
     if (birthdate.value.trim().length !== 10) {
         birthdate.parentElement.setAttribute("data-error-visible", "true");
+        let messageError = "Champ obligatoire";
+        birthdate.parentElement.setAttribute("data-error", messageError);
+        
         birthdate.style.border = "2px solid #e54858";
         // return false;
     } else {
@@ -167,16 +170,6 @@ const checkQuantity = () => {
     }
 };
 
-/*
-const allLocations = [
-  "New York",
-  "San Francisco",
-  "Seattle",
-  "Chicago",
-  "Boston",
-  "Portland",
-]
-*/
 
 /*const checkAllLocations = () => {
   allLocations.setAttribute('data-error-visible', 'true');
@@ -201,10 +194,15 @@ const checkAllLocations = () => {
     );
     console.log("locations", allLocations);
     if (!allLocations) {
+        cities.parentElement.setAttribute("data-error-visible", "true");
         console.log("Oups");
+        let messageError = "Champ obligatoire";
+        cities.parentElement.setAttribute("data-error", messageError);
+
+        cities.style.border = "2px solid #e54858";
     } else {
-        console.log("location OK", allLocations.value);
-        return true;
+      console.log("location OK", allLocations.value);
+      return true;
     }
 };
 
@@ -216,7 +214,6 @@ const checkCheckBox1 = () => {
         checkbox1.parentElement.setAttribute("data-error", messageError);
 
         checkbox1.style.border = "2px solid #e54858";
-        // return false;
     } else {
       checkbox1.parentElement.setAttribute("data-error-visible", "false");
       return true;
