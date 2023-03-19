@@ -16,7 +16,7 @@
   <body>
     <div class="topnav" id="myTopnav">
       <div class="header-logo">
-      <img alt="logo" src="Logo.png" width="auto" height="auto" />
+      <img alt="logo" class="logo" src="Logo.png" />
     </div>
     <div class="main-navbar">
       <a href="#" class="active"><span>Détails de l'évènement</span></a>
@@ -32,18 +32,20 @@
     <main>
       <div class="hero-section">
         <div class="hero-content">
-          <h1 class="hero-headline">
-            Marathon national<br>
-            de jeux vidéos
-          </h1>
-          <p class="hero-text">
-            Vous aimez jouer ? Notre prochain évènement gaming est ouvert
-            aux réservations... Places limitées !
-          </p>
-          <button class="btn-signup modal-btn">
-            je m'inscris
-          </button>
-        </div>
+          <div class="text-hero-content">
+            <h1 class="hero-headline">
+              Marathon national<br>
+              de jeux vidéos
+            </h1>
+            <p class="hero-text">
+              Vous aimez jouer ? Notre prochain évènement gaming est ouvert
+              aux réservations... Places limitées !
+            </p>
+            <button class="btn-signup modal-btn">
+              je m'inscris
+            </button>
+          </div>
+          </div>
         <div class="hero-img">
           <img src="./bg_img.jpg" alt="img" />
         </div>
@@ -199,7 +201,7 @@
           <div class="container-confirmation" id="confirmation">
             <div class="submitted">
               <p class="thanks">Merci pour<br>votre inscription</p>
-              <button class="btn-submit" id="return" type="submit" onclick="return closeModal()">Fermer</button>
+              <button class="btn-submit" clas="btn-close" id="return" type="submit" onclick="return closeModal()">Fermer</button>
             </div>
           </div>
           </div>
