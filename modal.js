@@ -57,8 +57,8 @@ const checkFirstName = () => {
       ? `Oups... ${firstName.value} n'est pas conforme`
       : "Champ obligatoire";
     firstName.parentElement.setAttribute("data-error", messageError);
-    /*firstName.style.border = "2px solid #e54858";
-    firstName.classList.add(`error-test`);*/
+
+    firstName.style.border = "2px solid #e54858";
     return false;
   } else {
     firstName.parentElement.setAttribute("data-error-visible", "false");
@@ -101,7 +101,7 @@ const checkEmail = () => {
     email.parentElement.setAttribute("data-error", messageError);
 
     email.style.border = "2px solid #e54858";
-    // return false;
+    return false;
   } else {
     email.parentElement.setAttribute("data-error-visible", "false");
     email.parentElement.setAttribute("data-error", ``);
@@ -111,35 +111,58 @@ const checkEmail = () => {
   }
 };
 
-/*
-function getAge(dateString) {
-  var today = new Date();
-  var birthDate = new Date(dateString);
-  var age = today.getFullYear() - birthDate.getFullYear();
-  var m = today.getMonth() - birthDate.getMonth();
-  if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
-      age--;
-  }
-  return age;
-}
-*/
-let today = new Date();
-let year = today.getFullYear();
-let month = today.getMonth();
-console.log(`Nous sommes en ${year} en ${month + 1}`);
+//Limits the possibility to registre to today's date and not in the future
+let today = new Date(); // get today's date
+let year = today.getFullYear(); // get the year
+let month = today.getMonth(); // get the month
 if (month + 1 < 10) month = "0" + (month + 1);
 let day = today.getDate();
-console.log(day);
 if (day < 10) day = "0" + day;
-console.log(day);
 
-let fullDate = `${year}-${month}-${day}`;
+let fullDate = `${year}-${month}-${day}`; // format YYYY-MM-DD
 birthdate.setAttribute("max", fullDate);
 
-let min = today.getTime() - 60 * 60 * 24 * 360 * 1000 * 18;
+//set the date with 18 years less
+let minAge = new Date(
+  today.getFullYear() - 18,
+  today.getMonth(),
+  today.getDate()
+);
+year = minAge.getFullYear(); // get the year
+month = minAge.getMonth(); // get the month
+if (month + 1 < 10) month = "0" + (month + 1);
+day = minAge.getDate();
+if (day < 10) day = "0" + day;
+let minDate = `${year}-${month}-${day}`; // format YYYY-MM-DD
+birthdate.setAttribute("min", minDate);
+
+/*
+//Sets minimum age as 18 years old
+let min = today.getTime() - 60 * 60 * 24 * 365 * 1000 * 18;
 let minDate = new Date(min);
 console.log(minDate);
 birthdate.setAttribute("min", min);
+
+// Get the birthdate input field and add an event listener to it
+const birthdateInput = document.getElementById("birthdate");
+birthdateInput.addEventListener("change", function () {
+  // Calculate the user's age based on the birthdate input
+  const birthdate = new Date(birthdateInput.value);
+  const ageInMs = Date.now() - birthdate.getTime();
+  const age = new Date(ageInMs).getUTCFullYear() - 1970;
+
+  // Check if the user is at least 18 years old
+  if (age < 18) {
+    age.parentElement.setAttribute("data-error-visible", "true");
+    let messageError = "Vous devez avoir au moins 18 ans pour vous inscrire ";
+    age.parentElement.setAttribute("data-error", messageError);
+    document.getElementById("go").disabled = true;
+  } else {
+    // If the user is 18 or older, enable the submit button
+    document.getElementById("go").disabled = false;
+  }
+});
+*/
 
 const checkBirthdate = () => {
   if (birthdate.value.trim().length !== 10) {
@@ -148,7 +171,7 @@ const checkBirthdate = () => {
     birthdate.parentElement.setAttribute("data-error", messageError);
 
     birthdate.style.border = "2px solid #e54858";
-    // return false;
+    return false;
   } else {
     birthdate.parentElement.setAttribute("data-error-visible", "false");
     birthdate.parentElement.setAttribute("data-error", ``);
@@ -169,7 +192,7 @@ const checkQuantity = () => {
     quantity.parentElement.setAttribute("data-error", messageError);
 
     quantity.style.border = "2px solid #e54858";
-    // return false;
+    return false;
   } else {
     quantity.parentElement.setAttribute("data-error-visible", "false");
     quantity.parentElement.setAttribute("data-error", ``);
@@ -188,7 +211,7 @@ const checkAllLocations = () => {
     let messageError = "Champ obligatoire";
     cities.parentElement.setAttribute("data-error", messageError);
 
-    //cities.style.border = "2px solid #e54858";
+    cities.style.border = "2px solid #e54858";
   } else {
     console.log("location OK", allLocations.value);
     return true;

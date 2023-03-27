@@ -358,6 +358,7 @@ input {
   color: #fff;
   cursor: pointer;
   border: 0;
+  margin-bottom: 5%;
 }
 
 /* custom select styles */
@@ -519,8 +520,6 @@ footer {
   padding-right: 2vw;
   margin: 0 20px;
 }
-
-
 
                                 @media screen and (max-width: 1005px) {
   
@@ -685,7 +684,6 @@ footer {
     height: 100%;
   }
 }
-
 
                                 @media screen and (max-width: 820px) {
 
