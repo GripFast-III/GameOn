@@ -58,13 +58,11 @@ const checkFirstName = () => {
       : "Champ obligatoire";
     firstName.parentElement.setAttribute("data-error", messageError);
 
-    firstName.style.border = "2px solid #e54858";
     return false;
   } else {
     firstName.parentElement.setAttribute("data-error-visible", "false");
     firstName.parentElement.setAttribute("data-error", ``);
 
-    firstName.style.border = "0px";
     return true;
   }
 };
@@ -81,13 +79,11 @@ const checkLastName = () => {
       : "Champ obligatoire";
     lastName.parentElement.setAttribute("data-error", messageError);
 
-    lastName.style.border = "2px solid #e54858";
     return false;
   } else {
     lastName.parentElement.setAttribute("data-error-visible", "false");
     lastName.parentElement.setAttribute("data-error", ``);
 
-    lastName.style.border = "0px";
     return true;
   }
 };
@@ -100,13 +96,11 @@ const checkEmail = () => {
       : "Champ obligatoire";
     email.parentElement.setAttribute("data-error", messageError);
 
-    email.style.border = "2px solid #e54858";
     return false;
   } else {
     email.parentElement.setAttribute("data-error-visible", "false");
     email.parentElement.setAttribute("data-error", ``);
 
-    email.style.border = "0px";
     return true;
   }
 };
@@ -122,47 +116,31 @@ if (day < 10) day = "0" + day;
 let fullDate = `${year}-${month}-${day}`; // format YYYY-MM-DD
 birthdate.setAttribute("max", fullDate);
 
-//set the date with 18 years less
-let minAge = new Date(
-  today.getFullYear() - 18,
-  today.getMonth(),
-  today.getDate()
-);
-year = minAge.getFullYear(); // get the year
-month = minAge.getMonth(); // get the month
-if (month + 1 < 10) month = "0" + (month + 1);
-day = minAge.getDate();
-if (day < 10) day = "0" + day;
-let minDate = `${year}-${month}-${day}`; // format YYYY-MM-DD
-birthdate.setAttribute("min", minDate);
-
-/*
-//Sets minimum age as 18 years old
-let min = today.getTime() - 60 * 60 * 24 * 365 * 1000 * 18;
-let minDate = new Date(min);
-console.log(minDate);
-birthdate.setAttribute("min", min);
-
-// Get the birthdate input field and add an event listener to it
-const birthdateInput = document.getElementById("birthdate");
-birthdateInput.addEventListener("change", function () {
-  // Calculate the user's age based on the birthdate input
-  const birthdate = new Date(birthdateInput.value);
-  const ageInMs = Date.now() - birthdate.getTime();
-  const age = new Date(ageInMs).getUTCFullYear() - 1970;
-
-  // Check if the user is at least 18 years old
-  if (age < 18) {
-    age.parentElement.setAttribute("data-error-visible", "true");
+birthdate.addEventListener("change", function (e) {
+  console.log("event: ", e);
+  // Date de l'input birthday
+  const valueOfInput = new Date(e.target.value);
+  console.log("🚀 ~ file: index.js:278 ~ valueOfInput:", valueOfInput);
+  // Transformation de l'input en timeStamp
+  const ageInTimeStamp = valueOfInput.getTime();
+  // Récupération de l'année il y à 18 ans
+  const yearilya18years = new Date().getFullYear() - 18;
+  console.log("🚀 ~ file: modal.js:134 ~ yearilya18years:", yearilya18years);
+  // Récupération de la date du jour ou j'écrase l'année d'il y a 18 ans puis je récupére le timestamp
+  const ilya18an = new Date(new Date().setFullYear(yearilya18years)).getTime();
+  // Comparaison des deux dates
+  if (ageInTimeStamp > ilya18an) {
+    birthdate.parentElement.setAttribute("data-error-visible", "true");
     let messageError = "Vous devez avoir au moins 18 ans pour vous inscrire ";
-    age.parentElement.setAttribute("data-error", messageError);
+    birthdate.parentElement.setAttribute("data-error", messageError);
     document.getElementById("go").disabled = true;
   } else {
     // If the user is 18 or older, enable the submit button
+    birthdate.parentElement.setAttribute("data-error-visible", "false");
+    birthdate.parentElement.setAttribute("data-error", "");
     document.getElementById("go").disabled = false;
   }
 });
-*/
 
 const checkBirthdate = () => {
   if (birthdate.value.trim().length !== 10) {
@@ -170,13 +148,11 @@ const checkBirthdate = () => {
     let messageError = "Champ obligatoire";
     birthdate.parentElement.setAttribute("data-error", messageError);
 
-    birthdate.style.border = "2px solid #e54858";
     return false;
   } else {
     birthdate.parentElement.setAttribute("data-error-visible", "false");
     birthdate.parentElement.setAttribute("data-error", ``);
 
-    birthdate.style.border = "0px";
     return true;
   }
 };
@@ -191,13 +167,11 @@ const checkQuantity = () => {
     let messageError = "Champ obligatoire";
     quantity.parentElement.setAttribute("data-error", messageError);
 
-    quantity.style.border = "2px solid #e54858";
     return false;
   } else {
     quantity.parentElement.setAttribute("data-error-visible", "false");
     quantity.parentElement.setAttribute("data-error", ``);
 
-    quantity.style.border = "0px";
     return true;
   }
 };
@@ -210,8 +184,6 @@ const checkAllLocations = () => {
     console.log("Oups");
     let messageError = "Champ obligatoire";
     cities.parentElement.setAttribute("data-error", messageError);
-
-    cities.style.border = "2px solid #e54858";
   } else {
     console.log("location OK", allLocations.value);
     return true;
@@ -224,8 +196,6 @@ const checkCheckBox1 = () => {
     checkbox1.parentElement.setAttribute("data-error-visible", "true");
     let messageError = "Champ obligatoire";
     checkbox1.parentElement.setAttribute("data-error", messageError);
-
-    checkbox1.style.border = "2px solid #e54858";
   } else {
     checkbox1.parentElement.setAttribute("data-error-visible", "false");
     return true;
@@ -251,6 +221,17 @@ form.addEventListener("submit", function (event) {
       form.reset(); // réinitialise les champs du formulaire
       form.style.display = "none"; // disparition du formulaire
       document.querySelector("#confirmation").style.display = "block"; //apparition du success
+      const dataErrorVisible = document.querySelectorAll(
+        '[data-error-visible="true"]'
+      );
+      console.log(
+        "🚀 ~ file: modal.js:228 ~ checkAll ~ dataErrorVisible:",
+        dataErrorVisible
+      );
+      dataErrorVisible.forEach(function (element) {
+        element.setAttribute("data-error-visible", "false");
+        element.setAttribute("data-error", "");
+      });
       return true;
     }
     // return false;
