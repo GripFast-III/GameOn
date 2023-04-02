@@ -18,12 +18,12 @@ const formData = document.querySelectorAll(".formData");
 // launch modal form
 function launchModal() {
   modalbg.style.display = "block";
-  form.style.display = "block"; // apparition du formulaire
+  form.style.display = "block"; // form apparition
 }
 // close modal form
 function closeModal() {
   modalbg.style.display = "none";
-  document.querySelector("#confirmation").style.display = "none"; //disparition du success
+  document.querySelector("#confirmation").style.display = "none"; // success's disparition
 }
 
 // launch modal event
@@ -113,22 +113,22 @@ if (month + 1 < 10) month = "0" + (month + 1);
 let day = today.getDate();
 if (day < 10) day = "0" + day;
 
-let fullDate = `${year}-${month}-${day}`; // format YYYY-MM-DD
+let fullDate = `${year}-${month}-${day}`; // YYYY-MM-DD format
 birthdate.setAttribute("max", fullDate);
 
 birthdate.addEventListener("change", function (e) {
   console.log("event: ", e);
-  // Date de l'input birthday
+  // Birthday's date input
   const valueOfInput = new Date(e.target.value);
   console.log("🚀 ~ file: index.js:278 ~ valueOfInput:", valueOfInput);
-  // Transformation de l'input en timeStamp
+  // Input transformation as timeStamp
   const ageInTimeStamp = valueOfInput.getTime();
-  // Récupération de l'année il y à 18 ans
-  const yearilya18years = new Date().getFullYear() - 18;
-  console.log("🚀 ~ file: modal.js:134 ~ yearilya18years:", yearilya18years);
-  // Récupération de la date du jour ou j'écrase l'année d'il y a 18 ans puis je récupére le timestamp
-  const ilya18an = new Date(new Date().setFullYear(yearilya18years)).getTime();
-  // Comparaison des deux dates
+  // Getting the year 18 years ago from today
+  const year18yearsago = new Date().getFullYear() - 18;
+  console.log("🚀 ~ file: modal.js:134 ~ year18yearsago:", year18yearsago);
+  // Today's date recuperation where I crush the year from 18 years ago then I get the timestamp
+  const ilya18an = new Date(new Date().setFullYear(year18yearsago)).getTime();
+  // Both dates comparison
   if (ageInTimeStamp > ilya18an) {
     birthdate.parentElement.setAttribute("data-error-visible", "true");
     let messageError = "Vous devez avoir au moins 18 ans pour vous inscrire ";
@@ -181,7 +181,6 @@ const checkAllLocations = () => {
   console.log("locations", allLocations);
   if (!allLocations) {
     cities.parentElement.setAttribute("data-error-visible", "true");
-    console.log("Oups");
     let messageError = "Champ obligatoire";
     cities.parentElement.setAttribute("data-error", messageError);
   } else {
@@ -203,7 +202,7 @@ const checkCheckBox1 = () => {
 };
 
 form.addEventListener("submit", function (event) {
-  event.preventDefault(); // empêche la soumission normale du formulaire
+  event.preventDefault(); // Prevents normal submission of the form
 
   const checkAll = () => {
     let isValid = true;
@@ -216,11 +215,10 @@ form.addEventListener("submit", function (event) {
     isValid = checkCheckBox1() && isValid;
 
     if (isValid) {
-      // Traitement du succes
-      console.log("cool ");
-      form.reset(); // réinitialise les champs du formulaire
+      // Treatment of success
+      form.reset(); // resets form fields
       form.style.display = "none"; // disparition du formulaire
-      document.querySelector("#confirmation").style.display = "block"; //apparition du success
+      document.querySelector("#confirmation").style.display = "block"; // Appearance of success
       const dataErrorVisible = document.querySelectorAll(
         '[data-error-visible="true"]'
       );
