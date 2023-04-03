@@ -19,6 +19,7 @@ const formData = document.querySelectorAll(".formData");
 function launchModal() {
   modalbg.style.display = "block";
   form.style.display = "block"; // form apparition
+  firstName.focus();
 }
 // close modal form
 function closeModal() {
@@ -42,13 +43,18 @@ const form = document.getElementById("content-form");
 const regex = /^[a-zA-ZÀ-ÖØ-öø-ÿ]+$/;
 const validForm = document.getElementById("confirmation");
 // const closeValidForm = document.getElementById()
-const submitBtn = document.getElementById("go");
 const re =
   /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
+firstName.addEventListener("input", (e) => {
+  if (e.target.value.length > 2) {
+    checkFirstName();
+  }
+});
+
 const checkFirstName = () => {
   if (
-    firstName.value.trim().length < 2 ||
+    firstName.value.trim().length < 5 ||
     first.value.trim() === "" ||
     !firstName.value.match(regex)
   ) {
@@ -201,39 +207,38 @@ const checkCheckBox1 = () => {
   }
 };
 
+const checkAll = () => {
+  let isValid = true;
+  isValid = checkFirstName() && isValid;
+  isValid = checkLastName() && isValid;
+  isValid = checkEmail() && isValid;
+  isValid = checkBirthdate() && isValid;
+  isValid = checkQuantity() && isValid;
+  isValid = checkAllLocations() && isValid;
+  isValid = checkCheckBox1() && isValid;
+
+  if (isValid) {
+    // Treatment of success
+    form.reset(); // resets form fields
+    form.style.display = "none"; // disparition du formulaire
+    document.querySelector("#confirmation").style.display = "block"; // Appearance of success
+    const dataErrorVisible = document.querySelectorAll(
+      '[data-error-visible="true"]'
+    );
+    console.log(
+      "🚀 ~ file: modal.js:228 ~ checkAll ~ dataErrorVisible:",
+      dataErrorVisible
+    );
+    dataErrorVisible.forEach(function (element) {
+      element.setAttribute("data-error-visible", "false");
+      element.setAttribute("data-error", "");
+    });
+    return true;
+  }
+  // return false;
+};
+
 form.addEventListener("submit", function (event) {
   event.preventDefault(); // Prevents normal submission of the form
-
-  const checkAll = () => {
-    let isValid = true;
-    isValid = checkFirstName() && isValid;
-    isValid = checkLastName() && isValid;
-    isValid = checkEmail() && isValid;
-    isValid = checkBirthdate() && isValid;
-    isValid = checkQuantity() && isValid;
-    isValid = checkAllLocations() && isValid;
-    isValid = checkCheckBox1() && isValid;
-
-    if (isValid) {
-      // Treatment of success
-      form.reset(); // resets form fields
-      form.style.display = "none"; // disparition du formulaire
-      document.querySelector("#confirmation").style.display = "block"; // Appearance of success
-      const dataErrorVisible = document.querySelectorAll(
-        '[data-error-visible="true"]'
-      );
-      console.log(
-        "🚀 ~ file: modal.js:228 ~ checkAll ~ dataErrorVisible:",
-        dataErrorVisible
-      );
-      dataErrorVisible.forEach(function (element) {
-        element.setAttribute("data-error-visible", "false");
-        element.setAttribute("data-error", "");
-      });
-      return true;
-    }
-    // return false;
-  };
-
-  submitBtn.addEventListener("click", checkAll);
+  checkAll();
 });
