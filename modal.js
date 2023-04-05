@@ -54,7 +54,7 @@ firstName.addEventListener("input", (e) => {
 
 const checkFirstName = () => {
   if (
-    firstName.value.trim().length < 5 ||
+    firstName.value.trim().length < 3 ||
     first.value.trim() === "" ||
     !firstName.value.match(regex)
   ) {
@@ -73,9 +73,15 @@ const checkFirstName = () => {
   }
 };
 
+lastName.addEventListener("input", (e) => {
+  if (e.target.value.length > 2) {
+    checkLastName();
+  }
+});
+
 const checkLastName = () => {
   if (
-    lastName.value.trim().length < 2 ||
+    lastName.value.trim().length < 3 ||
     last.value.trim() === "" ||
     !lastName.value.match(regex)
   ) {
@@ -93,6 +99,12 @@ const checkLastName = () => {
     return true;
   }
 };
+
+email.addEventListener("input", (e) => {
+  if (e.target.value.trim() === "" || !email.value.match(re)) {
+    checkEmail();
+  }
+});
 
 const checkEmail = () => {
   if (email.value.trim() === "" || !email.value.match(re)) {
@@ -148,6 +160,12 @@ birthdate.addEventListener("change", function (e) {
   }
 });
 
+birthdate.addEventListener("input", (e) => {
+  if (e.target.value.trim().length !== 10) {
+    checkBirthdate();
+  }
+});
+
 const checkBirthdate = () => {
   if (birthdate.value.trim().length !== 10) {
     birthdate.parentElement.setAttribute("data-error-visible", "true");
@@ -162,6 +180,12 @@ const checkBirthdate = () => {
     return true;
   }
 };
+
+quantity.addEventListener("input", (e) => {
+  if (e.target.value.trim().length === 0) {
+    checkQuantity();
+  }
+});
 
 const checkQuantity = () => {
   if (
