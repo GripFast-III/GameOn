@@ -47,14 +47,14 @@ const re =
   /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
 firstName.addEventListener("input", (e) => {
-  if (e.target.value.length > 2) {
+  if (e.target.value.length >= 2) {
     checkFirstName();
   }
 });
 
 const checkFirstName = () => {
   if (
-    firstName.value.trim().length < 3 ||
+    firstName.value.trim().length < 2 ||
     first.value.trim() === "" ||
     !firstName.value.match(regex)
   ) {
@@ -74,14 +74,14 @@ const checkFirstName = () => {
 };
 
 lastName.addEventListener("input", (e) => {
-  if (e.target.value.length > 2) {
+  if (e.target.value.length >= 2) {
     checkLastName();
   }
 });
 
 const checkLastName = () => {
   if (
-    lastName.value.trim().length < 3 ||
+    lastName.value.trim().length < 2 ||
     last.value.trim() === "" ||
     !lastName.value.match(regex)
   ) {
@@ -206,6 +206,44 @@ const checkQuantity = () => {
   }
 };
 
+const location1 = document.getElementById("location1");
+location1.addEventListener("input", (e) => {
+  if (e.target.value.trim() === checked) {
+    checkAllLocations();
+  }
+});
+
+const location2 = document.getElementById("location2");
+location2.addEventListener("input", (e) => {
+  if (e.target.value.trim() === checked) {
+    checkAllLocations();
+  }
+});
+const location3 = document.getElementById("location3");
+location3.addEventListener("input", (e) => {
+  if (e.target.value.trim() === checked) {
+    checkAllLocations();
+  }
+});
+const location4 = document.getElementById("location4");
+location4.addEventListener("input", (e) => {
+  if (e.target.value.trim() === checked) {
+    checkAllLocations();
+  }
+});
+const location5 = document.getElementById("location5");
+location5.addEventListener("input", (e) => {
+  if (e.target.value.trim() === checked) {
+    checkAllLocations();
+  }
+});
+const location6 = document.getElementById("location6");
+location6.addEventListener("input", (e) => {
+  if (e.target.value.trim() === checked) {
+    checkAllLocations();
+  }
+});
+
 const checkAllLocations = () => {
   const allLocations = document.querySelector('input[name="location"]:checked');
   console.log("locations", allLocations);
@@ -213,8 +251,11 @@ const checkAllLocations = () => {
     cities.parentElement.setAttribute("data-error-visible", "true");
     let messageError = "Champ obligatoire";
     cities.parentElement.setAttribute("data-error", messageError);
+
+    return false;
   } else {
-    console.log("location OK", allLocations.value);
+    cities.parentElement.setAttribute("data-error-visible", "false");
+    cities.parentElement.setAttribute("data-error", ``);
     return true;
   }
 };
@@ -225,6 +266,8 @@ const checkCheckBox1 = () => {
     checkbox1.parentElement.setAttribute("data-error-visible", "true");
     let messageError = "Champ obligatoire";
     checkbox1.parentElement.setAttribute("data-error", messageError);
+
+    return false;
   } else {
     checkbox1.parentElement.setAttribute("data-error-visible", "false");
     return true;
